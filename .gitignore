@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+/RemoteSystemsTempFiles
+/user-login-ui/node_modules
+/user-login-server/bin
+/user-login-server/target
