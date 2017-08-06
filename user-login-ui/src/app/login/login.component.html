@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>User Login</h1>
+  <div *ngIf="userLogin">
+    <div class="form-group">
+      <table aliign="center">
+        <tr>
+          <td item-width="50%">User Name: </td>
+          <td item-width="50%"><input type="text" class="form-control" 
+            required [(ngModel)]="userLogin.userId" />
+          </td>
+        </tr>
+        <tr>
+          <td item-width="50%">Password: </td>
+          <td item-width="50%"><input type="password" class="form-control" 
+            required [(ngModel)]="userLogin.password" />
+          </td>
+        </tr>
+        <tr>
+          <td item-width="100%" colspan="2" align="center">
+            <button (click)="onLogin(userLogin)" class="btn btn-success">Login</button>
+          </td>
+        </tr>
+      </table>
+      <table aliign="center">
+        <tr>
+          <td item-width="100%">Not a registered user? then 
+            <a routerLink="/registration" routerLinkActive="active">register here</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
