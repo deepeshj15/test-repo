@@ -1,7 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Registration } from '../model/registration';
 import { RegistrationService } from '../service/registration.service';
-import {} from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -14,9 +15,11 @@ export class RegistrationComponent implements OnInit {
   registration: Registration;
   errorMsg: string;
   successMsg: string;
+  secretQuestions: string[];
 
-  constructor(private registrationService: RegistrationService) {
+  constructor(private registrationService: RegistrationService, private router: Router) {
     this.registration = new Registration();
+    this.secretQuestions = this.registrationService.getSecretQuestions();
   }
 
   ngOnInit() {
@@ -32,7 +35,12 @@ export class RegistrationComponent implements OnInit {
     + ", " + this.registration.city + ", " + this.registration.birthdate + ", " 
     + this.registration.secretQuestion + ", " + registration.secretAnswer);
 
-    this.errorMsg = this.registrationService.validateUserRegistration(this.registration);
+    try {
+      this.registrationService.validateUserRegistration(this.registration);
+    } catch (e) {
+      this.errorMsg = e.message;
+    }
+
     if (this.errorMsg == null) {
       this.registrationService.validateUser(registration).subscribe(
         data => {
@@ -41,6 +49,10 @@ export class RegistrationComponent implements OnInit {
             this.errorMsg = data['message'];
           } else if (data['statusCode'] == 1)   {
             this.successMsg = data['message'];
+
+            setTimeout((router: Router) => {
+              this.router.navigateByUrl('/');
+            }, 3000);  //3s
           } 
         }
       );

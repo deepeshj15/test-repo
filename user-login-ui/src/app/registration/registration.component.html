@@ -10,57 +10,64 @@
     <div class="form-group">
       <table aliign="center">
         <tr>
-          <td item-width="50%">User Id</td>
+          <td item-width="45%">User Id</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="text" #box required [(ngModel)]="registration.userId" />
+            <input type="text" class="form-control" [(ngModel)]="registration.userId" />
           </td>
         </tr>
         <tr>
-          <td item-width="50%">Password</td>
+          <td item-width="45%">Password</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="password" class="form-control" required [(ngModel)]="registration.password"
-              />
+            <input type="password" class="form-control" required [(ngModel)]="registration.password" />
           </td>
         </tr>
         <tr>
-          <td item-width="50%">User Name</td>
+          <td item-width="45%">User Name</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.userName"
-              />
+            <input type="text" class="form-control" required class="form-control" required [(ngModel)]="registration.userName"/>
           </td>
         </tr>
         <tr>
-          <td item-width="50%">Email</td>
+          <td item-width="45%">Email</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.email"
-              />
+            <input type="text" class="form-control" required [(ngModel)]="registration.email"/>
           </td>
         </tr>
         <tr>
-          <td item-width="50%">City</td>
+          <td item-width="45%">City</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
             <input type="text" class="form-control" required [(ngModel)]="registration.city"
               />
           </td>
         </tr>
         <tr>
-          <td item-width="50%">Date Of Birth</td>
+          <td item-width="45%">Date Of Birth</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="date" [(ngModel)]="registration.birthdate" />
+            <input type="date" class="form-control" [(ngModel)]="registration.birthdate" />
           </td>
         </tr>
         <tr>
-          <td item-width="50%">Secret Question</td>
+          <td item-width="45%">Secret Question</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.secretQuestion" 
-              /> 
+            <select required class="form-control" [(ngModel)]="registration.secretQuestion">
+                <option *ngFor="let question of secretQuestions" [value]="question">
+                  {{ question }}
+                </option>
+            </select>
           </td>
         </tr>
         <tr>
-          <td item-width="50%">Secret Answer</td>
+          <td item-width="45%">Secret Answer</td>
+          <td item-width="5%">&nbsp;</td>
           <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.secretAnswer" 
-              /> 
+            <input type="text" class="form-control" required [(ngModel)]="registration.secretAnswer" /> 
           </td>
         </tr>
         <tr>

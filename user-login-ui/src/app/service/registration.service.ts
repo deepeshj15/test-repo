@@ -11,39 +11,33 @@ export class RegistrationService {
   constructor(private http: Http) { 
   }
 
+  getSecretQuestions() {
+    return ['What is the name of your school name?', 'What is the name of your elder child?',
+    'What is the name of your cell phone operator?'];
+  }
+
   validateUserRegistration(registration: Registration) {
 
-    var error = this.validateTextField(registration.userId, 'User Id');
-    if (error == null) {
-      error = this.validateTextField(registration.password, 'Password');
-    }
-    if (error == null) {
-      error = this.validateTextField(registration.userName, 'User Name');
-    }
-    if (error == null) {
-      error = this.validateTextField(registration.email, 'Email');
-    }
-    if (error == null) {
-      error = this.validateTextField(registration.city, 'City');
-    }
-    if (error == null) {
-      error = this.validateDateField(registration.birthdate, 'Date of Birth ');
-    }
-    return error;
+    this.validateTextField(registration.userId, 'User Id');
+    this.validateTextField(registration.password, 'Password');
+    this.validateTextField(registration.userName, 'User Name');
+    this.validateTextField(registration.email, 'Email');
+    this.validateTextField(registration.city, 'City');
+    this.validateDateField(registration.birthdate, 'Date of Birth ');
+    this.validateTextField(registration.secretQuestion, 'Secret Question');
+    this.validateTextField(registration.secretAnswer, 'secretAnswer');
   }
 
   private validateTextField(field: string, fieldName: string) {
     if (field == null || field == '') {
-      return "The provided " + fieldName + " is either null or empty.";
+      throw new Error ("The provided " + fieldName + " is either null or empty.");
     }
-    return null;
   }
 
   private validateDateField(field: Date, fieldName: string) {
     if (field == null) {
-      return "The provided " + fieldName + " is either null or empty.";
+      throw new Error ("The provided " + fieldName + " is either null or empty.");
     }
-    return null;
   }
 
   validateUser(registration: Registration): Observable<any> {
