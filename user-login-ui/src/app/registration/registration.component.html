@@ -1,88 +1,58 @@
 <div class="container">
-  <h1>User Regstration</h1>
-  <div *ngIf="errorMsg">
-    <label class="alert alert-danger">{{errorMsg}}</label>
+  <p class="h4 text-center mb-2">User Regstration</p>
+
+  <div *ngIf="errorMsg" class="alert alert-danger" style="margin-left: 10px">
+    {{ errorMsg }}
   </div>
-  <div *ngIf="successMsg">
-    <label class="alert alert-success">{{successMsg}}</label>
+  <div *ngIf="successMsg" class="alert alert-success" style="margin-left: 10px">
+    {{ successMsg }}
   </div>
-  <div *ngIf="registration">
-    <div class="form-group">
-      <table aliign="center">
-        <tr>
-          <td item-width="45%">User Id</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="text" class="form-control" [(ngModel)]="registration.userId" />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">Password</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="password" class="form-control" required [(ngModel)]="registration.password" />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">User Name</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="text" class="form-control" required class="form-control" required [(ngModel)]="registration.userName"/>
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">Email</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.email"/>
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">City</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.city"
-              />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">Date Of Birth</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="date" class="form-control" [(ngModel)]="registration.birthdate" />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">Secret Question</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <select required class="form-control" [(ngModel)]="registration.secretQuestion">
-                <option *ngFor="let question of secretQuestions" [value]="question">
-                  {{ question }}
-                </option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td item-width="45%">Secret Answer</td>
-          <td item-width="5%">&nbsp;</td>
-          <td item-width="50%">
-            <input type="text" class="form-control" required [(ngModel)]="registration.secretAnswer" /> 
-          </td>
-        </tr>
-        <tr>
-          <td item-width="100%" colspan="2" align="center">
-            <button (click)="onRegister(registration)" class="btn btn-success">Register</button>
-          </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td item-width="100%">Proceed to User login 
-            <a routerLink="/login" routerLinkActive="active"> here</a>
-          </td>
-        </tr>
-      </table>
+  <div *ngIf="registration" class="form-group">
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">User ID</span>
+      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.userId" 
+        (change)="checkIfUserIdAvailable(registration.userId)" />
+      <div *ngIf="isValidUserId">
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+      </div>
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Password</span>
+      <input type="password" class="form-control" style="height: 30px" [(ngModel)]="registration.password" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">User Name</span>
+      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.userName" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Email Address</span>
+      <input type="email" class="form-control" style="height: 30px" [(ngModel)]="registration.email" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">City</span>
+      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.city" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Date of Birth</span>
+      <input type="date" style="height: 30px" [(ngModel)]="registration.birthdate" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Secret Question</span>
+      <select class="form-control" style="height: 30px" [(ngModel)]="registration.secretQuestion">
+        <option *ngFor="let question of secretQuestions" [value]="question">
+          {{ question }}
+        </option>
+      </select>
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Secret Answer</span>
+      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.secretAnswer" />
+    </div>
+    <div style="margin: 5px" align="center">
+      <button (click)="doRegister(registration)" class="btn">Register</button>
+    </div>
+    <div style="margin: 2px; text-align: center">
+      Proceed to User login <a routerLink="/login" routerLinkActive="active">here</a>
     </div>
   </div>
 </div>

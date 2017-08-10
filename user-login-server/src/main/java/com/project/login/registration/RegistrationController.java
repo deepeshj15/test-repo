@@ -1,15 +1,17 @@
 package com.project.login.registration;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.login.data.UserRepository;
 import com.project.login.model.Registration;
-import com.project.login.model.UserRegistrationResponse;
+import com.project.login.model.AppResponse;
 
 /**
  * @author Administrator
@@ -19,18 +21,54 @@ import com.project.login.model.UserRegistrationResponse;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-	private static final Set<String> userIds = new HashSet<>();
+	@Autowired
+	private UserRepository userRepository;
 
-	@RequestMapping(value = "/validateUser", method = RequestMethod.POST)
-	public UserRegistrationResponse validateUser(@RequestBody Registration registration) {
+	@RequestMapping(value = "/checkIfUserIdAvailable/{userId}", method = RequestMethod.GET)
+	public AppResponse checkIfUserIdAvailable(@PathVariable("userId") final String userId) {
+
+		final AppResponse response = AppResponse.getDefaultResponse();
+		if (userId == null || userId.trim().length() == 0) {
+			response.setMessage("The provided User Id is either null or empty.");
+		} else if (userId.length() < 6 || userId.length() > 10) {
+			response.setMessage("User Id length must be minimum 6 character and maximum upto 10 characters.");
+		} else if (userId == null || userId.length() < 6 || this.userRepository.checkIfUserExist(userId)) {
+			response.setMessage("The provided User Id is already in use. Please provide a different one.");
+		} else {
+			response.setStatus("SUCCESS");
+			response.setStatusCode(1);
+		}
+		return response;
+	}
+
+	@RequestMapping(value = "/sendUserId", method = RequestMethod.POST)
+	public ResponseEntity<String> test(@RequestBody String userId) {
+		final AppResponse response = AppResponse.getDefaultResponse();
+		if (userId == null) {
+			response.setMessage("Invalid userId");
+		} else {
+			response.setStatus("SUCCESS");
+			response.setStatusCode(1);
+			response.setMessage("UserId provided is: " + userId);
+		}
+		return new ResponseEntity<String>(response.getMessage(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/registerUser", method = RequestMethod.POST)
+	public AppResponse registerUser(@RequestBody Registration registration) {
 
 		final String userId = registration.getUserId();
-		if (userIds.contains(userId)) {
-			return new UserRegistrationResponse("FAILED", 0,
-					"The provided User Id is already in use. Please provide a different one");
+		final AppResponse response = checkIfUserIdAvailable(userId);
+		final String password = registration.getPassword();
+		if (response.getStatusCode() == 1) {
+			this.userRepository.createUser(registration);
+			response.setMessage(
+					"Congratulation! User registration is successful. You will be redirected to login page in 3 seconds...");
+		} else if (password == null || password.trim().length() == 0) {
+			response.setMessage("The provided password is either null or empty.");
+		} else if (password.length() < 6 || password.length() > 10) {
+			response.setMessage("Password length must be minimum 6 character and maximum upto 10 characters.");
 		}
-		userIds.add(userId);
-		return new UserRegistrationResponse("SUCCESS", 1,
-				"Congratulation! User registration is successful. Please proceed with login");
+		return response;
 	}
 }

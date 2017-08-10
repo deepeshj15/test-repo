@@ -3,6 +3,8 @@ package com.project.login.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 public class Registration implements Serializable {
 
 	private String userId;
@@ -13,6 +15,10 @@ public class Registration implements Serializable {
 	private Date birthdate;
 	private String secretQuestion;
 	private String secretAnswer;
+	
+	public Registration() {
+		super();
+	}
 
 	public String getUserId() {
 		return userId;

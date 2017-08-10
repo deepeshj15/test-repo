@@ -82,6 +82,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__registration_registration_component__ = __webpack_require__("../../../../../src/app/registration/registration.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_routes__ = __webpack_require__("../../../../../src/app/app.routes.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__welcome_welcome_component__ = __webpack_require__("../../../../../src/app/welcome/welcome.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -89,6 +90,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -108,7 +110,8 @@ AppModule = __decorate([
         declarations: [
             __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_6__registration_registration_component__["a" /* RegistrationComponent */],
-            __WEBPACK_IMPORTED_MODULE_7__login_login_component__["a" /* LoginComponent */]
+            __WEBPACK_IMPORTED_MODULE_7__login_login_component__["a" /* LoginComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__welcome_welcome_component__["a" /* WelcomeComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -133,13 +136,17 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__registration_registration_component__ = __webpack_require__("../../../../../src/app/registration/registration.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login_component__ = __webpack_require__("../../../../../src/app/login/login.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__welcome_welcome_component__ = __webpack_require__("../../../../../src/app/welcome/welcome.component.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Routing; });
+
 
 
 
 var routes = [
     { path: 'registration', component: __WEBPACK_IMPORTED_MODULE_1__registration_registration_component__["a" /* RegistrationComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_2__login_login_component__["a" /* LoginComponent */] },
+    { path: 'welcome/:userId', component: __WEBPACK_IMPORTED_MODULE_3__welcome_welcome_component__["a" /* WelcomeComponent */] },
+    { path: 'login/:userId', component: __WEBPACK_IMPORTED_MODULE_2__login_login_component__["a" /* LoginComponent */] },
     { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 var Routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["a" /* RouterModule */].forRoot(routes);
@@ -155,7 +162,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".form-label {\r\n    width: 140px; \r\n    text-align: left; \r\n    height: 30px;\r\n}", ""]);
 
 // exports
 
@@ -168,7 +175,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>User Login</h1>\n  <div *ngIf=\"userLogin\">\n    <div class=\"form-group\">\n      <table aliign=\"center\">\n        <tr>\n          <td item-width=\"50%\">User Name: </td>\n          <td item-width=\"50%\"><input type=\"text\" class=\"form-control\" \n            required [(ngModel)]=\"userLogin.userId\" />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"50%\">Password: </td>\n          <td item-width=\"50%\"><input type=\"password\" class=\"form-control\" \n            required [(ngModel)]=\"userLogin.password\" />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"100%\" colspan=\"2\" align=\"center\">\n            <button (click)=\"onLogin(userLogin)\" class=\"btn btn-success\">Login</button>\n          </td>\n        </tr>\n      </table>\n      <table aliign=\"center\">\n        <tr>\n          <td item-width=\"100%\">Not a registered user? then \n            <a routerLink=\"/registration\" routerLinkActive=\"active\">register here</a>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Login</p>\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <div *ngIf=\"userLogin\" class=\"form-group\">\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User ID</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"userLogin.userId\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Password</span>\n      <input type=\"password\" class=\"form-control\" style=\"height: 30px;\" [(ngModel)]=\"userLogin.password\" />\n    </div>\n    <div style=\"margin: 5px\" align=\"center\">\n      <button (click)=\"doLogin(userLogin)\" class=\"btn btn-success\">Login</button>\n    </div>\n    <div style=\"margin: 2px; text-align: center\">\n      Not a registered user? Please <a routerLink=\"/registration\" routerLinkActive=\"active\">\n        register here</a>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -177,7 +184,9 @@ module.exports = "<div class=\"container\">\n  <h1>User Login</h1>\n  <div *ngIf
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_login__ = __webpack_require__("../../../../../src/app/model/login.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_login__ = __webpack_require__("../../../../../src/app/model/login.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_login_service__ = __webpack_require__("../../../../../src/app/service/login.service.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -190,15 +199,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+//import 'rxjs/add/operator/switchMap';
+
+
 var LoginComponent = (function () {
-    function LoginComponent() {
-        this.userLogin = new __WEBPACK_IMPORTED_MODULE_1__model_login__["a" /* Login */]();
+    function LoginComponent(activatedRoute, route, loginService) {
+        var _this = this;
+        this.activatedRoute = activatedRoute;
+        this.route = route;
+        this.loginService = loginService;
+        this.userLogin = new __WEBPACK_IMPORTED_MODULE_2__model_login__["a" /* Login */]();
+        this.activatedRoute.paramMap.forEach(function (params) {
+            _this.userLogin.userId = activatedRoute.snapshot.params['userId'];
+        });
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
-    LoginComponent.prototype.onLogin = function (userLogin) {
-        this.userLogin = userLogin;
-        console.log("Data: " + this.userLogin.userId + ", " + this.userLogin.password);
+    LoginComponent.prototype.doLogin = function (userLogin) {
+        var _this = this;
+        this.errorMsg = null;
+        console.log("Request data: " + userLogin.userId + ", " + userLogin.password);
+        try {
+            this.loginService.doLogin(userLogin).subscribe(function (data) {
+                console.log("Response data: " + data['statusCode'] + ", " + data['message']);
+                if (data['statusCode'] == 0) {
+                    _this.errorMsg = data['message'];
+                }
+                else {
+                    console.log("Login success");
+                    _this.route.navigate(['/welcome', userLogin.userId]);
+                }
+            });
+        }
+        catch (e) {
+            this.errorMsg = e.message;
+        }
     };
     return LoginComponent;
 }());
@@ -206,11 +241,13 @@ LoginComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* Component */])({
         selector: 'app-login',
         template: __webpack_require__("../../../../../src/app/login/login.component.html"),
-        styles: [__webpack_require__("../../../../../src/app/login/login.component.css")]
+        styles: [__webpack_require__("../../../../../src/app/login/login.component.css")],
+        providers: [__WEBPACK_IMPORTED_MODULE_3__service_login_service__["a" /* LoginService */]]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__service_login_service__["a" /* LoginService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_login_service__["a" /* LoginService */]) === "function" && _c || Object])
 ], LoginComponent);
 
+var _a, _b, _c;
 //# sourceMappingURL=login.component.js.map
 
 /***/ }),
@@ -255,7 +292,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".form-label {\r\n    width: 140px; \r\n    text-align: left; \r\n    height: 30px;\r\n}", ""]);
 
 // exports
 
@@ -268,7 +305,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/registration/registration.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>User Regstration</h1>\n  <div *ngIf=\"errorMsg\">\n    <label class=\"alert alert-danger\">{{errorMsg}}</label>\n  </div>\n  <div *ngIf=\"successMsg\">\n    <label class=\"alert alert-success\">{{successMsg}}</label>\n  </div>\n  <div *ngIf=\"registration\">\n    <div class=\"form-group\">\n      <table aliign=\"center\">\n        <tr>\n          <td item-width=\"45%\">User Id</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"text\" class=\"form-control\" [(ngModel)]=\"registration.userId\" />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">Password</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"password\" class=\"form-control\" required [(ngModel)]=\"registration.password\" />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">User Name</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"text\" class=\"form-control\" required class=\"form-control\" required [(ngModel)]=\"registration.userName\"/>\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">Email</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"text\" class=\"form-control\" required [(ngModel)]=\"registration.email\"/>\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">City</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"text\" class=\"form-control\" required [(ngModel)]=\"registration.city\"\n              />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">Date Of Birth</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"date\" class=\"form-control\" [(ngModel)]=\"registration.birthdate\" />\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">Secret Question</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <select required class=\"form-control\" [(ngModel)]=\"registration.secretQuestion\">\n                <option *ngFor=\"let question of secretQuestions\" [value]=\"question\">\n                  {{ question }}\n                </option>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"45%\">Secret Answer</td>\n          <td item-width=\"5%\">&nbsp;</td>\n          <td item-width=\"50%\">\n            <input type=\"text\" class=\"form-control\" required [(ngModel)]=\"registration.secretAnswer\" /> \n          </td>\n        </tr>\n        <tr>\n          <td item-width=\"100%\" colspan=\"2\" align=\"center\">\n            <button (click)=\"onRegister(registration)\" class=\"btn btn-success\">Register</button>\n          </td>\n        </tr>\n      </table>\n      <table>\n        <tr>\n          <td item-width=\"100%\">Proceed to User login \n            <a routerLink=\"/login\" routerLinkActive=\"active\"> here</a>\n          </td>\n        </tr>\n      </table>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Regstration</p>\n\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <div *ngIf=\"registration\" class=\"form-group\">\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User ID</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.userId\" \n        (change)=\"checkIfUserIdAvailable(registration.userId)\" />\n      <div *ngIf=\"isValidUserId\">\n        <span class=\"glyphicon glyphicon-ok form-control-feedback\"></span>\n      </div>\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Password</span>\n      <input type=\"password\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.password\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User Name</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.userName\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Email Address</span>\n      <input type=\"email\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.email\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">City</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.city\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Date of Birth</span>\n      <input type=\"date\" style=\"height: 30px\" [(ngModel)]=\"registration.birthdate\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Secret Question</span>\n      <select class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.secretQuestion\">\n        <option *ngFor=\"let question of secretQuestions\" [value]=\"question\">\n          {{ question }}\n        </option>\n      </select>\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Secret Answer</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.secretAnswer\" />\n    </div>\n    <div style=\"margin: 5px\" align=\"center\">\n      <button (click)=\"doRegister(registration)\" class=\"btn\">Register</button>\n    </div>\n    <div style=\"margin: 2px; text-align: center\">\n      Proceed to User login <a routerLink=\"/login\" routerLinkActive=\"active\">here</a>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -303,34 +340,57 @@ var RegistrationComponent = (function () {
     }
     RegistrationComponent.prototype.ngOnInit = function () {
     };
-    RegistrationComponent.prototype.onRegister = function (registration) {
-        var _this = this;
-        this.registration = registration;
+    RegistrationComponent.prototype.doRegister = function (registration) {
         this.errorMsg = null;
         this.successMsg = null;
-        console.log("Data: " + this.registration.userId + ", " + this.registration.password + ", "
-            + this.registration.email + ", " + registration.confirmPassword + ", " + this.registration.userName
-            + ", " + this.registration.city + ", " + this.registration.birthdate + ", "
-            + this.registration.secretQuestion + ", " + registration.secretAnswer);
+        this.registration = registration;
         try {
-            this.registrationService.validateUserRegistration(this.registration);
+            this.registrationService.validateUserRegistrationForm(this.registration);
+            this.validateUser(this.registration);
         }
         catch (e) {
             this.errorMsg = e.message;
         }
-        if (this.errorMsg == null) {
-            this.registrationService.validateUser(registration).subscribe(function (data) {
-                console.log("Response: ", data);
+    };
+    RegistrationComponent.prototype.validateUser = function (registration) {
+        var _this = this;
+        try {
+            /* Check if User details is available or not */
+            this.registrationService.registerUser(registration).subscribe(function (data) {
+                if (data['statusCode'] == 0) {
+                    throw new Error(data['message']);
+                }
+                else if (data['statusCode'] == 1) {
+                    _this.successMsg = data['message'];
+                    _this.isValidUserId = true;
+                    setTimeout(function (router) {
+                        _this.router.navigate(['/login', _this.registration.userId]);
+                    }, 3000); //3s
+                }
+            });
+        }
+        catch (e) {
+            this.errorMsg = e.message;
+        }
+    };
+    RegistrationComponent.prototype.checkIfUserIdAvailable = function (userId) {
+        var _this = this;
+        this.errorMsg = null;
+        this.successMsg = null;
+        this.isValidUserId = false;
+        /* Check if UserId is available or not */
+        try {
+            this.registrationService.checkIfUserIdAvailable(userId).subscribe(function (data) {
                 if (data['statusCode'] == 0) {
                     _this.errorMsg = data['message'];
                 }
                 else if (data['statusCode'] == 1) {
-                    _this.successMsg = data['message'];
-                    setTimeout(function (router) {
-                        _this.router.navigateByUrl('/');
-                    }, 3000); //5s
+                    _this.isValidUserId = true;
                 }
             });
+        }
+        catch (e) {
+            this.errorMsg = e.message;
         }
     };
     return RegistrationComponent;
@@ -342,11 +402,65 @@ RegistrationComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/registration/registration.component.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_3__service_registration_service__["a" /* RegistrationService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__service_registration_service__["a" /* RegistrationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_registration_service__["a" /* RegistrationService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__service_registration_service__["a" /* RegistrationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_registration_service__["a" /* RegistrationService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], RegistrationComponent);
 
 var _a, _b;
 //# sourceMappingURL=registration.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/service/login.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var LoginService = (function () {
+    function LoginService(http) {
+        this.http = http;
+    }
+    LoginService.prototype.doLogin = function (userLogin) {
+        this.validateTextField(userLogin.userId, 'User Id');
+        this.validateTextField(userLogin.password, 'Password');
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
+        return this.http.post("http://localhost:8080/login/authenticate", userLogin, options)
+            .map(function (data) { return data.json(); });
+        //.catch( err =>{ return err; });
+    };
+    LoginService.prototype.validateTextField = function (field, fieldName) {
+        if (field == null || field == '') {
+            throw new Error("The provided " + fieldName + " is either null or empty.");
+        }
+    };
+    return LoginService;
+}());
+LoginService = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
+], LoginService);
+
+var _a;
+//# sourceMappingURL=login.service.js.map
 
 /***/ }),
 
@@ -382,7 +496,7 @@ var RegistrationService = (function () {
         return ['What is the name of your school name?', 'What is the name of your elder child?',
             'What is the name of your cell phone operator?'];
     };
-    RegistrationService.prototype.validateUserRegistration = function (registration) {
+    RegistrationService.prototype.validateUserRegistrationForm = function (registration) {
         this.validateTextField(registration.userId, 'User Id');
         this.validateTextField(registration.password, 'Password');
         this.validateTextField(registration.userName, 'User Name');
@@ -402,19 +516,17 @@ var RegistrationService = (function () {
             throw new Error("The provided " + fieldName + " is either null or empty.");
         }
     };
-    RegistrationService.prototype.validateUser = function (registration) {
+    RegistrationService.prototype.registerUser = function (registration) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this.http.post("http://localhost:8080/registration/validateUser", registration, options)
+        return this.http.post("http://localhost:8080/registration/registerUser", registration, options)
             .map(function (data) { return data.json(); });
-        //.catch((err)=>{ return err; });
-        //headers.append('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
-        //headers.append('Access-Control-Allow-Origin', "*");
-        //let options = new RequestOptions({ headers: headers, method: "get" }); 
-        /*return this.http.get("http://localhost:8080/registration/validateUser/"
-        + registration.userId)
-                .map((data)=>{ return data.json() })
-                .catch((err)=>{ return err; })*/
+        //.catch( err=> { return err; });
+    };
+    RegistrationService.prototype.checkIfUserIdAvailable = function (userId) {
+        return this.http.get("http://localhost:8080/registration/checkIfUserIdAvailable/" + userId)
+            .map(function (data) { return data.json(); })
+            .catch(function (err) { return err; });
     };
     return RegistrationService;
 }());
@@ -425,6 +537,76 @@ RegistrationService = __decorate([
 
 var _a;
 //# sourceMappingURL=registration.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/welcome/welcome.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/welcome/welcome.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  Welcome {{ userId }}!\n</p>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/welcome/welcome.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WelcomeComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var WelcomeComponent = (function () {
+    function WelcomeComponent(activatedRoute, route) {
+        var _this = this;
+        this.activatedRoute = activatedRoute;
+        this.route = route;
+        this.activatedRoute.paramMap.forEach(function (params) {
+            _this.userId = activatedRoute.snapshot.params['userId'];
+        });
+    }
+    WelcomeComponent.prototype.ngOnInit = function () {
+    };
+    return WelcomeComponent;
+}());
+WelcomeComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["e" /* Component */])({
+        selector: 'app-welcome',
+        template: __webpack_require__("../../../../../src/app/welcome/welcome.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/welcome/welcome.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
+], WelcomeComponent);
+
+var _a, _b;
+//# sourceMappingURL=welcome.component.js.map
 
 /***/ }),
 

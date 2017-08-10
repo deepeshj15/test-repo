@@ -1,16 +1,26 @@
 package com.project.login.model;
 
-public class UserRegistrationResponse {
+public class AppResponse {
 
 	private String status;
 	private int statusCode;
 	private String message;
 
-	public UserRegistrationResponse(final String status, final int statusCode, final String message) {
+	public AppResponse(final String status, final int statusCode) {
+		super();
+		this.status = status;
+		this.statusCode = statusCode;
+	}
+
+	public AppResponse(final String status, final int statusCode, final String message) {
 		super();
 		this.status = status;
 		this.statusCode = statusCode;
 		this.message = message;
+	}
+
+	public static AppResponse getDefaultResponse() {
+		return new AppResponse("FAILED", 0);
 	}
 
 	public String getStatus() {

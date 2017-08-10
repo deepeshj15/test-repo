@@ -1,33 +1,26 @@
 <div class="container">
-  <h1>User Login</h1>
-  <div *ngIf="userLogin">
-    <div class="form-group">
-      <table aliign="center">
-        <tr>
-          <td item-width="50%">User Name: </td>
-          <td item-width="50%"><input type="text" class="form-control" 
-            required [(ngModel)]="userLogin.userId" />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="50%">Password: </td>
-          <td item-width="50%"><input type="password" class="form-control" 
-            required [(ngModel)]="userLogin.password" />
-          </td>
-        </tr>
-        <tr>
-          <td item-width="100%" colspan="2" align="center">
-            <button (click)="onLogin(userLogin)" class="btn btn-success">Login</button>
-          </td>
-        </tr>
-      </table>
-      <table aliign="center">
-        <tr>
-          <td item-width="100%">Not a registered user? then 
-            <a routerLink="/registration" routerLinkActive="active">register here</a>
-          </td>
-        </tr>
-      </table>
+  <p class="h4 text-center mb-2">User Login</p>
+  <div *ngIf="errorMsg" class="alert alert-danger" style="margin-left: 10px">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="successMsg" class="alert alert-success" style="margin-left: 10px">
+    {{ successMsg }}
+  </div>
+  <div *ngIf="userLogin" class="form-group">
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">User ID</span>
+      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="userLogin.userId" />
+    </div>
+    <div class="input-group" style="margin: 5px">
+      <span class="input-group-addon form-label">Password</span>
+      <input type="password" class="form-control" style="height: 30px;" [(ngModel)]="userLogin.password" />
+    </div>
+    <div style="margin: 5px" align="center">
+      <button (click)="doLogin(userLogin)" class="btn btn-success">Login</button>
+    </div>
+    <div style="margin: 2px; text-align: center">
+      Not a registered user? Please <a routerLink="/registration" routerLinkActive="active">
+        register here</a>
     </div>
   </div>
 </div>

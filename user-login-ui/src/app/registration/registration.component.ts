@@ -16,6 +16,7 @@ export class RegistrationComponent implements OnInit {
   errorMsg: string;
   successMsg: string;
   secretQuestions: string[];
+  isValidUserId: boolean;
 
   constructor(private registrationService: RegistrationService, private router: Router) {
     this.registration = new Registration();
@@ -25,37 +26,63 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRegister(registration: Registration) {
-    this.registration = registration;
+  doRegister(registration: Registration) {
+
     this.errorMsg = null;
     this.successMsg = null;
-
-    console.log("Data: " + this.registration.userId + ", " + this.registration.password + ", " 
-    + this.registration.email + ", " + registration.confirmPassword + ", " + this.registration.userName 
-    + ", " + this.registration.city + ", " + this.registration.birthdate + ", " 
-    + this.registration.secretQuestion + ", " + registration.secretAnswer);
-
+    this.registration = registration;
     try {
-      this.registrationService.validateUserRegistration(this.registration);
+
+      this.registrationService.validateUserRegistrationForm(this.registration);
+      this.validateUser(this.registration);
     } catch (e) {
       this.errorMsg = e.message;
     }
+  }
 
-    if (this.errorMsg == null) {
-      this.registrationService.validateUser(registration).subscribe(
+  validateUser(registration: Registration) {
+
+    try {
+      /* Check if User details is available or not */
+      this.registrationService.registerUser(registration).subscribe(
         data => {
-          console.log("Response: ", data);
           if (data['statusCode'] == 0) {
-            this.errorMsg = data['message'];
+            throw new Error(data['message']);
           } else if (data['statusCode'] == 1)   {
-            this.successMsg = data['message'];
 
+            this.successMsg = data['message'];
+            this.isValidUserId = true;
             setTimeout((router: Router) => {
-              this.router.navigateByUrl('/');
+              this.router.navigate(['/login', this.registration.userId]);
             }, 3000);  //3s
           } 
         }
       );
+    } catch (e) {
+      this.errorMsg = e.message;
+    }
+
+  }
+
+  checkIfUserIdAvailable(userId: string) {
+    
+    this.errorMsg = null;
+    this.successMsg = null;
+    this.isValidUserId = false;
+
+    /* Check if UserId is available or not */
+    try {
+      this.registrationService.checkIfUserIdAvailable(userId).subscribe(
+          data => {
+            if (data['statusCode'] == 0) {
+              this.errorMsg = data['message'];
+            } else if (data['statusCode'] == 1)   {
+              this.isValidUserId = true;
+            }
+          }
+        );
+    } catch(e) {
+      this.errorMsg = e.message;
     }
   }
 }

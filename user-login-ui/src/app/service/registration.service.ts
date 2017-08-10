@@ -11,12 +11,12 @@ export class RegistrationService {
   constructor(private http: Http) { 
   }
 
-  getSecretQuestions() {
+  public getSecretQuestions() {
     return ['What is the name of your school name?', 'What is the name of your elder child?',
     'What is the name of your cell phone operator?'];
   }
 
-  validateUserRegistration(registration: Registration) {
+  public validateUserRegistrationForm(registration: Registration) {
 
     this.validateTextField(registration.userId, 'User Id');
     this.validateTextField(registration.password, 'Password');
@@ -40,21 +40,21 @@ export class RegistrationService {
     }
   }
 
-  validateUser(registration: Registration): Observable<any> {
+  public registerUser(registration: Registration): Observable<any> {
     
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "http://localhost:8080/registration/validateUser", registration, options)
-      .map((data)=>{ return data.json() });
-               
-      //.catch((err)=>{ return err; });
-    //headers.append('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
-    //headers.append('Access-Control-Allow-Origin', "*");
-    //let options = new RequestOptions({ headers: headers, method: "get" }); 
-    /*return this.http.get("http://localhost:8080/registration/validateUser/" 
-    + registration.userId)
-            .map((data)=>{ return data.json() }) 
-            .catch((err)=>{ return err; })*/
+      "http://localhost:8080/registration/registerUser", registration, options)
+      .map( data => { return data.json() });
+      //.catch( err=> { return err; });
+  }
+
+  public checkIfUserIdAvailable(userId: string): Observable<any> {
+
+    return this.http.get(
+      "http://localhost:8080/registration/checkIfUserIdAvailable/" + userId)
+      .map( data => { return data.json(); })
+      .catch( err => { return err; });
   }
 }
