@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+.form-field-group {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.field-text {
+    height: 30px;
+}
+
+.field-label {
+    width: 140px; 
+    text-align: left; 
+    height: 30px;
+}
+
+.ng-valid {
+  border-left: 5px solid grey; /* green */
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

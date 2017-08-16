@@ -6,21 +6,35 @@
   <div *ngIf="successMsg" class="alert alert-success" style="margin-left: 10px">
     {{ successMsg }}
   </div>
-  <div *ngIf="userLogin" class="form-group">
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">User ID</span>
-      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="userLogin.userId" />
+  <form #loginForm="ngForm" (submit)="loginForm.form.valid && doLogin(userLogin)">
+    <div *ngIf="userLogin" class="form-group">
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">User ID</span>
+        <input type="text" [(ngModel)]="userLogin.userId" name="userId" #userId 
+          class="form-control field-text" required minlength="6" maxlength="10" />
+
+        <!--<input type="text" name="userId" #userId="ngModel" class="form-control text-line text-height" 
+          [ng-class]="{'red-border-class': userId.errors}" [(ngModel)]="userLogin.userId" 
+          required minlength="6" maxlength="10" />-->
+          <!--<div *ngIf="loginForm.submitted && !userId.valid" class="alert alert-danger" style="height: 30px">UserId is required.</div>-->
+          <!--<div *ngIf="userId.invalid && (userId.dirty || userId.touched)" class="alert alert-danger"></div>
+          <div *ngIf="userId.errors.required">UserId is required.</div>-->
+          <!--<div *ngIf="userId.hasError('minlength') && !userId.hasError('required')">UserId must be at least 6 characters long.</div>-->
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Password</span>
+        <input type="password" [(ngModel)]="userLogin.password" name="password" #password 
+          class="form-control field-text" required minlength="6" maxlength="10" />
+          <!--<div *ngIf="loginForm.submitted && !password.valid" class="alert alert-danger" style="height: 30px">Password is required.</div>-->
+      </div>
+      <div style="margin: 5px" align="center">
+        <!--<button (click)="doLogin(userLogin)" class="btn btn-success">Login</button>-->
+        <button type="submit" [disabled]="!loginForm.form.valid" class="btn btn-success">Login</button>
+      </div>
     </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Password</span>
-      <input type="password" class="form-control" style="height: 30px;" [(ngModel)]="userLogin.password" />
-    </div>
-    <div style="margin: 5px" align="center">
-      <button (click)="doLogin(userLogin)" class="btn btn-success">Login</button>
-    </div>
-    <div style="margin: 2px; text-align: center">
-      Not a registered user? Please <a routerLink="/registration" routerLinkActive="active">
-        register here</a>
-    </div>
+  </form>
+  <div style="margin: 2px; text-align: center">
+    Not a registered user? Please <a routerLink="/registration" routerLinkActive="active">
+      register here</a>
   </div>
 </div>

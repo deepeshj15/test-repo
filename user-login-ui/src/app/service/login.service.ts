@@ -18,7 +18,7 @@ export class LoginService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "http://localhost:8080/login/authenticate", userLogin, options)
+      "/login/authenticate", userLogin, options)
       .map( data =>{ return data.json() });
       //.catch( err =>{ return err; });
   }

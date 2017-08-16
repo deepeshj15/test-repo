@@ -7,52 +7,61 @@
   <div *ngIf="successMsg" class="alert alert-success" style="margin-left: 10px">
     {{ successMsg }}
   </div>
-  <div *ngIf="registration" class="form-group">
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">User ID</span>
-      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.userId" 
-        (change)="checkIfUserIdAvailable(registration.userId)" />
-      <div *ngIf="isValidUserId">
-        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+  <form #registrationForm="ngForm" (submit)="registrationForm.form.valid && doRegister(registration)">
+    <div *ngIf="registration" class="form-group">
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">User ID</span>
+        <input type="text" [(ngModel)]="registration.userId" name="userId" #userId (change)="checkIfUserIdAvailable(registration.userId)" 
+          class="form-control field-text" required minlength="6" maxlength="10" />
+        <div *ngIf="isValidUserId">
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Password</span>
+        <input type="password" [(ngModel)]="registration.password" name="password" #password
+          class="form-control field-text" required minlength="6" maxlength="10" />
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Email Address</span>
+        <input type="email" [(ngModel)]="registration.email" name="email" #email
+          class="form-control field-text" required />
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">User Name</span>
+        <input type="text" [(ngModel)]="registration.userName" name="userName" #userName
+          class="form-control field-text" />
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">City</span>
+        <input type="text" [(ngModel)]="registration.city" name="city" #city
+          class="form-control field-text" />
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Date of Birth</span>
+        <input type="date" [(ngModel)]="registration.birthdate" name="birthdate" #birthdate
+          class="field-text"/>
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Secret Question</span>
+        <select [(ngModel)]="registration.secretQuestion" name="secretQuestion" #secretQuestion required>
+          <option *ngFor="let question of secretQuestions" [value]="question">
+            {{ question }}
+          </option>
+        </select>
+      </div>
+      <div class="input-group form-field-group">
+        <span class="input-group-addon field-label">Secret Answer</span>
+        <input type="text" [(ngModel)]="registration.secretAnswer" name="secretAnswer" #secretAnswer
+          class="form-control field-text" required />
+      </div>
+      <div form-field-group align="center">
+        <!--<button (click)="doRegister(registration)" class="btn">Register</button>-->
+        <button type="submit" [disabled]="!registrationForm.form.valid" class="btn btn-success">Register</button>
+      </div>
+      <div style="margin: 2px; text-align: center">
+        Proceed to User login <a routerLink="/login" routerLinkActive="active">here</a>
       </div>
     </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Password</span>
-      <input type="password" class="form-control" style="height: 30px" [(ngModel)]="registration.password" />
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">User Name</span>
-      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.userName" />
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Email Address</span>
-      <input type="email" class="form-control" style="height: 30px" [(ngModel)]="registration.email" />
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">City</span>
-      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.city" />
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Date of Birth</span>
-      <input type="date" style="height: 30px" [(ngModel)]="registration.birthdate" />
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Secret Question</span>
-      <select class="form-control" style="height: 30px" [(ngModel)]="registration.secretQuestion">
-        <option *ngFor="let question of secretQuestions" [value]="question">
-          {{ question }}
-        </option>
-      </select>
-    </div>
-    <div class="input-group" style="margin: 5px">
-      <span class="input-group-addon form-label">Secret Answer</span>
-      <input type="text" class="form-control" style="height: 30px" [(ngModel)]="registration.secretAnswer" />
-    </div>
-    <div style="margin: 5px" align="center">
-      <button (click)="doRegister(registration)" class="btn">Register</button>
-    </div>
-    <div style="margin: 2px; text-align: center">
-      Proceed to User login <a routerLink="/login" routerLinkActive="active">here</a>
-    </div>
-  </div>
+  </form>
 </div>

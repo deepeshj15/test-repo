@@ -1,3 +1,39 @@
-<p>
-  Welcome {{ userId }}!
-</p>
+<div class="container">
+  <div class="headerBox">
+    <span class="headerText">User Login & Registration Module</span>
+    <span class="welcomeUserText">{{ userId }}</span>
+  </div>
+
+  <ul class="nav nav-pills nav-stacked">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">User Profile</a></li>
+      <li><a href="#">Change Password</a></li>
+      <li><a href="#">Change Secret Q & A</a></li>
+      <li><a href="#">Logout</a></li>
+    </ul>
+  <div class="tab">
+    <button class="tablinks" (click)="openMenu(event, 'Profile')">User Profile</button>
+    <button class="tablinks" (click)="openMenu(event, 'ChangePassword')">Change Password</button>
+    <button class="tablinks" (click)="openMenu(event, 'ChangeSecretQA')">Change Secret Q & A</button>
+    <button class="tablinks" (click)="openMenu(event, 'Logout')">Logout</button>
+  </div>
+
+  <div id="Profile" class="tabcontent">
+    <h3>User Profile</h3>
+    <p>Profile details will be placed here</p>
+  </div>
+
+  <div id="ChangePassword" class="tabcontent">
+    <h3>Change Password</h3>
+    <p>Password fields will be placed here</p> 
+  </div>
+
+  <div id="ChangeSecretQA" class="tabcontent">
+    <h3>Change Secret Q & A</h3>
+    <p>Secret Q & fields will be placed here</p>
+  </div>
+  <div id="Logout" class="tabcontent">
+    <h3>Logout</h3>
+    <p>User will be logged out</p>
+  </div>
+</div>

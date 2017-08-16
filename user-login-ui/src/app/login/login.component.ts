@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   doLogin(userLogin: Login) {
     
     this.errorMsg = null;
-    console.log("Request data: " + userLogin.userId + ", " + userLogin.password);
+    console.log("Request data: " + userLogin.userId);
     try {
       this.loginService.doLogin(userLogin).subscribe(
         data => {
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
           if (data['statusCode'] == 0) {
             this.errorMsg = data['message'];
           } else {
-            console.log("Login success");
             this.route.navigate(['/welcome', userLogin.userId]);
           }
         }

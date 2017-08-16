@@ -38,10 +38,9 @@ public class AppSecurityConfiguration {
 
 			// @formatter:off
 			http// don't create session
-			.csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .authorizeRequests().antMatchers("/").permitAll();
-            //.anyRequest().authenticated();
+					.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+					.authorizeRequests().antMatchers("/", "/login").permitAll();
+			// .anyRequest().authenticated();
 			// @formatter:on
 		}
 	}

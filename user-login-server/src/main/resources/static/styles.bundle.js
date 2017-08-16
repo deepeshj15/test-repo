@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.form-field-group {\n    margin-top: 5px;\n    margin-left: 10px;\n    margin-right: 10px;\n}\n\n.field-text {\n    height: 30px;\n}\n\n.field-label {\n    width: 140px; \n    text-align: left; \n    height: 30px;\n}\n\n.ng-valid {\n  border-left: 5px solid grey; /* green */\n}\n\n.ng-valid[required], .ng-valid.required  {\n  border-left: 5px solid #42A948; /* green */\n}\n\n.ng-invalid:not(form)  {\n  border-left: 5px solid #a94442; /* red */\n}\n", ""]);
 
 // exports
 

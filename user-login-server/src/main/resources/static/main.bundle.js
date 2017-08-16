@@ -162,7 +162,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".form-label {\r\n    width: 140px; \r\n    text-align: left; \r\n    height: 30px;\r\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -175,7 +175,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Login</p>\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <div *ngIf=\"userLogin\" class=\"form-group\">\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User ID</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"userLogin.userId\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Password</span>\n      <input type=\"password\" class=\"form-control\" style=\"height: 30px;\" [(ngModel)]=\"userLogin.password\" />\n    </div>\n    <div style=\"margin: 5px\" align=\"center\">\n      <button (click)=\"doLogin(userLogin)\" class=\"btn btn-success\">Login</button>\n    </div>\n    <div style=\"margin: 2px; text-align: center\">\n      Not a registered user? Please <a routerLink=\"/registration\" routerLinkActive=\"active\">\n        register here</a>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Login</p>\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <form #loginForm=\"ngForm\" (submit)=\"loginForm.form.valid && doLogin(userLogin)\">\n    <div *ngIf=\"userLogin\" class=\"form-group\">\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">User ID</span>\n        <input type=\"text\" [(ngModel)]=\"userLogin.userId\" name=\"userId\" #userId \n          class=\"form-control field-text\" required minlength=\"6\" maxlength=\"10\" />\n\n        <!--<input type=\"text\" name=\"userId\" #userId=\"ngModel\" class=\"form-control text-line text-height\" \n          [ng-class]=\"{'red-border-class': userId.errors}\" [(ngModel)]=\"userLogin.userId\" \n          required minlength=\"6\" maxlength=\"10\" />-->\n          <!--<div *ngIf=\"loginForm.submitted && !userId.valid\" class=\"alert alert-danger\" style=\"height: 30px\">UserId is required.</div>-->\n          <!--<div *ngIf=\"userId.invalid && (userId.dirty || userId.touched)\" class=\"alert alert-danger\"></div>\n          <div *ngIf=\"userId.errors.required\">UserId is required.</div>-->\n          <!--<div *ngIf=\"userId.hasError('minlength') && !userId.hasError('required')\">UserId must be at least 6 characters long.</div>-->\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Password</span>\n        <input type=\"password\" [(ngModel)]=\"userLogin.password\" name=\"password\" #password \n          class=\"form-control field-text\" required minlength=\"6\" maxlength=\"10\" />\n          <!--<div *ngIf=\"loginForm.submitted && !password.valid\" class=\"alert alert-danger\" style=\"height: 30px\">Password is required.</div>-->\n      </div>\n      <div style=\"margin: 5px\" align=\"center\">\n        <!--<button (click)=\"doLogin(userLogin)\" class=\"btn btn-success\">Login</button>-->\n        <button type=\"submit\" [disabled]=\"!loginForm.form.valid\" class=\"btn btn-success\">Login</button>\n      </div>\n    </div>\n  </form>\n  <div style=\"margin: 2px; text-align: center\">\n    Not a registered user? Please <a routerLink=\"/registration\" routerLinkActive=\"active\">\n      register here</a>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -218,7 +218,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.doLogin = function (userLogin) {
         var _this = this;
         this.errorMsg = null;
-        console.log("Request data: " + userLogin.userId + ", " + userLogin.password);
+        console.log("Request data: " + userLogin.userId);
         try {
             this.loginService.doLogin(userLogin).subscribe(function (data) {
                 console.log("Response data: " + data['statusCode'] + ", " + data['message']);
@@ -226,7 +226,6 @@ var LoginComponent = (function () {
                     _this.errorMsg = data['message'];
                 }
                 else {
-                    console.log("Login success");
                     _this.route.navigate(['/welcome', userLogin.userId]);
                 }
             });
@@ -292,7 +291,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".form-label {\r\n    width: 140px; \r\n    text-align: left; \r\n    height: 30px;\r\n}", ""]);
+exports.push([module.i, "", ""]);
 
 // exports
 
@@ -305,7 +304,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/registration/registration.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Regstration</p>\n\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <div *ngIf=\"registration\" class=\"form-group\">\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User ID</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.userId\" \n        (change)=\"checkIfUserIdAvailable(registration.userId)\" />\n      <div *ngIf=\"isValidUserId\">\n        <span class=\"glyphicon glyphicon-ok form-control-feedback\"></span>\n      </div>\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Password</span>\n      <input type=\"password\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.password\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">User Name</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.userName\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Email Address</span>\n      <input type=\"email\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.email\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">City</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.city\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Date of Birth</span>\n      <input type=\"date\" style=\"height: 30px\" [(ngModel)]=\"registration.birthdate\" />\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Secret Question</span>\n      <select class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.secretQuestion\">\n        <option *ngFor=\"let question of secretQuestions\" [value]=\"question\">\n          {{ question }}\n        </option>\n      </select>\n    </div>\n    <div class=\"input-group\" style=\"margin: 5px\">\n      <span class=\"input-group-addon form-label\">Secret Answer</span>\n      <input type=\"text\" class=\"form-control\" style=\"height: 30px\" [(ngModel)]=\"registration.secretAnswer\" />\n    </div>\n    <div style=\"margin: 5px\" align=\"center\">\n      <button (click)=\"doRegister(registration)\" class=\"btn\">Register</button>\n    </div>\n    <div style=\"margin: 2px; text-align: center\">\n      Proceed to User login <a routerLink=\"/login\" routerLinkActive=\"active\">here</a>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <p class=\"h4 text-center mb-2\">User Regstration</p>\n\n  <div *ngIf=\"errorMsg\" class=\"alert alert-danger\" style=\"margin-left: 10px\">\n    {{ errorMsg }}\n  </div>\n  <div *ngIf=\"successMsg\" class=\"alert alert-success\" style=\"margin-left: 10px\">\n    {{ successMsg }}\n  </div>\n  <form #registrationForm=\"ngForm\" (submit)=\"registrationForm.form.valid && doRegister(registration)\">\n    <div *ngIf=\"registration\" class=\"form-group\">\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">User ID</span>\n        <input type=\"text\" [(ngModel)]=\"registration.userId\" name=\"userId\" #userId (change)=\"checkIfUserIdAvailable(registration.userId)\" \n          class=\"form-control field-text\" required minlength=\"6\" maxlength=\"10\" />\n        <div *ngIf=\"isValidUserId\">\n          <span class=\"glyphicon glyphicon-ok form-control-feedback\"></span>\n        </div>\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Password</span>\n        <input type=\"password\" [(ngModel)]=\"registration.password\" name=\"password\" #password\n          class=\"form-control field-text\" required minlength=\"6\" maxlength=\"10\" />\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Email Address</span>\n        <input type=\"email\" [(ngModel)]=\"registration.email\" name=\"email\" #email\n          class=\"form-control field-text\" required />\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">User Name</span>\n        <input type=\"text\" [(ngModel)]=\"registration.userName\" name=\"userName\" #userName\n          class=\"form-control field-text\" />\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">City</span>\n        <input type=\"text\" [(ngModel)]=\"registration.city\" name=\"city\" #city\n          class=\"form-control field-text\" />\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Date of Birth</span>\n        <input type=\"date\" [(ngModel)]=\"registration.birthdate\" name=\"birthdate\" #birthdate\n          class=\"field-text\"/>\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Secret Question</span>\n        <select [(ngModel)]=\"registration.secretQuestion\" name=\"secretQuestion\" #secretQuestion required>\n          <option *ngFor=\"let question of secretQuestions\" [value]=\"question\">\n            {{ question }}\n          </option>\n        </select>\n      </div>\n      <div class=\"input-group form-field-group\">\n        <span class=\"input-group-addon field-label\">Secret Answer</span>\n        <input type=\"text\" [(ngModel)]=\"registration.secretAnswer\" name=\"secretAnswer\" #secretAnswer\n          class=\"form-control field-text\" required />\n      </div>\n      <div form-field-group align=\"center\">\n        <!--<button (click)=\"doRegister(registration)\" class=\"btn\">Register</button>-->\n        <button type=\"submit\" [disabled]=\"!registrationForm.form.valid\" class=\"btn btn-success\">Register</button>\n      </div>\n      <div style=\"margin: 2px; text-align: center\">\n        Proceed to User login <a routerLink=\"/login\" routerLinkActive=\"active\">here</a>\n      </div>\n    </div>\n  </form>\n</div>"
 
 /***/ }),
 
@@ -443,7 +442,7 @@ var LoginService = (function () {
         this.validateTextField(userLogin.password, 'Password');
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this.http.post("http://localhost:8080/login/authenticate", userLogin, options)
+        return this.http.post("/login/authenticate", userLogin, options)
             .map(function (data) { return data.json(); });
         //.catch( err =>{ return err; });
     };
@@ -497,34 +496,34 @@ var RegistrationService = (function () {
             'What is the name of your cell phone operator?'];
     };
     RegistrationService.prototype.validateUserRegistrationForm = function (registration) {
-        this.validateTextField(registration.userId, 'User Id');
-        this.validateTextField(registration.password, 'Password');
-        this.validateTextField(registration.userName, 'User Name');
-        this.validateTextField(registration.email, 'Email');
-        this.validateTextField(registration.city, 'City');
-        this.validateDateField(registration.birthdate, 'Date of Birth ');
-        this.validateTextField(registration.secretQuestion, 'Secret Question');
-        this.validateTextField(registration.secretAnswer, 'secretAnswer');
+        this.validateTextField(registration.userId, 'User Id', true);
+        this.validateTextField(registration.password, 'Password', true);
+        this.validateTextField(registration.email, 'Email', true);
+        this.validateTextField(registration.userName, 'User Name', false);
+        this.validateTextField(registration.city, 'City', false);
+        this.validateDateField(registration.birthdate, 'Date of Birth', false);
+        this.validateTextField(registration.secretQuestion, 'Secret Question', true);
+        this.validateTextField(registration.secretAnswer, 'secretAnswer', true);
     };
-    RegistrationService.prototype.validateTextField = function (field, fieldName) {
-        if (field == null || field == '') {
+    RegistrationService.prototype.validateTextField = function (field, fieldName, required) {
+        if (required && (field == null || field == '')) {
             throw new Error("The provided " + fieldName + " is either null or empty.");
         }
     };
-    RegistrationService.prototype.validateDateField = function (field, fieldName) {
-        if (field == null) {
+    RegistrationService.prototype.validateDateField = function (field, fieldName, required) {
+        if (required && field == null) {
             throw new Error("The provided " + fieldName + " is either null or empty.");
         }
     };
     RegistrationService.prototype.registerUser = function (registration) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]({ headers: headers });
-        return this.http.post("http://localhost:8080/registration/registerUser", registration, options)
+        return this.http.post("/registration/registerUser", registration, options)
             .map(function (data) { return data.json(); });
         //.catch( err=> { return err; });
     };
     RegistrationService.prototype.checkIfUserIdAvailable = function (userId) {
-        return this.http.get("http://localhost:8080/registration/checkIfUserIdAvailable/" + userId)
+        return this.http.get("/registration/checkIfUserIdAvailable/" + userId)
             .map(function (data) { return data.json(); })
             .catch(function (err) { return err; });
     };
@@ -548,7 +547,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "div.headerBox {\r\n    background-color: #337ab7;\r\n    height: 35px;\r\n    padding-left: 15px;\r\n    padding-right: 15px;\r\n}\r\n\r\n.headerText {\r\n    color: white;\r\n    font-weight: bold;\r\n    font-size: 15px;\r\n    display: inline-block;\r\n    margin-top: 5px;\r\n}\r\n\r\n.welcomeUserText {\r\n    color: white;\r\n    font-size: 10px;\r\n    display: inline-block;\r\n    text-align: right;\r\n    margin-top: 5px;\r\n}\r\n\r\n/* Style the tab */\r\ndiv.tab {\r\n    float: left;\r\n    border: 1px solid #ccc;\r\n    background-color: #f1f1f1;\r\n    width: 30%;\r\n    height: 300px;\r\n}\r\n\r\n/* Style the buttons inside the tab */\r\ndiv.tab button {\r\n    display: block;\r\n    background-color: inherit;\r\n    color: black;\r\n    padding: 22px 16px;\r\n    width: 100%;\r\n    border: none;\r\n    outline: none;\r\n    text-align: left;\r\n    cursor: pointer;\r\n    transition: 0.3s;\r\n}\r\n\r\n/* Change background color of buttons on hover */\r\ndiv.tab button:hover {\r\n    background-color: #ddd;\r\n}\r\n\r\n/* Create an active/current \"tab button\" class */\r\ndiv.tab button.active {\r\n    background-color: #ccc;\r\n}\r\n\r\n/* Style the tab content */\r\n.tabcontent {\r\n    float: left;\r\n    padding: 0px 12px;\r\n    border: 1px solid #ccc;\r\n    width: 70%;\r\n    border-left: none;\r\n    height: 300px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -561,7 +560,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/welcome/welcome.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  Welcome {{ userId }}!\n</p>\n"
+module.exports = "<div class=\"container\">\n  <div class=\"headerBox\">\n    <span class=\"headerText\">User Login & Registration Module</span>\n    <span class=\"welcomeUserText\">{{ userId }}</span>\n  </div>\n\n  <ul class=\"nav nav-pills nav-stacked\">\n      <li class=\"active\"><a href=\"#\">Home</a></li>\n      <li><a href=\"#\">User Profile</a></li>\n      <li><a href=\"#\">Change Password</a></li>\n      <li><a href=\"#\">Change Secret Q & A</a></li>\n      <li><a href=\"#\">Logout</a></li>\n    </ul>\n  <div class=\"tab\">\n    <button class=\"tablinks\" (click)=\"openMenu(event, 'Profile')\">User Profile</button>\n    <button class=\"tablinks\" (click)=\"openMenu(event, 'ChangePassword')\">Change Password</button>\n    <button class=\"tablinks\" (click)=\"openMenu(event, 'ChangeSecretQA')\">Change Secret Q & A</button>\n    <button class=\"tablinks\" (click)=\"openMenu(event, 'Logout')\">Logout</button>\n  </div>\n\n  <div id=\"Profile\" class=\"tabcontent\">\n    <h3>User Profile</h3>\n    <p>Profile details will be placed here</p>\n  </div>\n\n  <div id=\"ChangePassword\" class=\"tabcontent\">\n    <h3>Change Password</h3>\n    <p>Password fields will be placed here</p> \n  </div>\n\n  <div id=\"ChangeSecretQA\" class=\"tabcontent\">\n    <h3>Change Secret Q & A</h3>\n    <p>Secret Q & fields will be placed here</p>\n  </div>\n  <div id=\"Logout\" class=\"tabcontent\">\n    <h3>Logout</h3>\n    <p>User will be logged out</p>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -593,6 +592,23 @@ var WelcomeComponent = (function () {
         });
     }
     WelcomeComponent.prototype.ngOnInit = function () {
+    };
+    WelcomeComponent.prototype.openMenu = function (evt, menuName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        // Show the current tab, and add an "active" class to the link that opened the tab
+        document.getElementById(menuName).style.display = "block";
+        evt.currentTarget.className += " active";
     };
     return WelcomeComponent;
 }());

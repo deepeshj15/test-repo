@@ -18,24 +18,24 @@ export class RegistrationService {
 
   public validateUserRegistrationForm(registration: Registration) {
 
-    this.validateTextField(registration.userId, 'User Id');
-    this.validateTextField(registration.password, 'Password');
-    this.validateTextField(registration.userName, 'User Name');
-    this.validateTextField(registration.email, 'Email');
-    this.validateTextField(registration.city, 'City');
-    this.validateDateField(registration.birthdate, 'Date of Birth ');
-    this.validateTextField(registration.secretQuestion, 'Secret Question');
-    this.validateTextField(registration.secretAnswer, 'secretAnswer');
+    this.validateTextField(registration.userId, 'User Id', true);
+    this.validateTextField(registration.password, 'Password', true);
+    this.validateTextField(registration.email, 'Email', true);
+    this.validateTextField(registration.userName, 'User Name', false);
+    this.validateTextField(registration.city, 'City', false);
+    this.validateDateField(registration.birthdate, 'Date of Birth', false);
+    this.validateTextField(registration.secretQuestion, 'Secret Question', true);
+    this.validateTextField(registration.secretAnswer, 'secretAnswer', true);
   }
 
-  private validateTextField(field: string, fieldName: string) {
-    if (field == null || field == '') {
+  private validateTextField(field: string, fieldName: string, required: boolean) {
+    if (required && (field == null || field == '')) {
       throw new Error ("The provided " + fieldName + " is either null or empty.");
     }
   }
 
-  private validateDateField(field: Date, fieldName: string) {
-    if (field == null) {
+  private validateDateField(field: Date, fieldName: string, required: boolean) {
+    if (required && field == null) {
       throw new Error ("The provided " + fieldName + " is either null or empty.");
     }
   }
@@ -45,7 +45,7 @@ export class RegistrationService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this.http.post(
-      "http://localhost:8080/registration/registerUser", registration, options)
+      "/registration/registerUser", registration, options)
       .map( data => { return data.json() });
       //.catch( err=> { return err; });
   }
@@ -53,7 +53,7 @@ export class RegistrationService {
   public checkIfUserIdAvailable(userId: string): Observable<any> {
 
     return this.http.get(
-      "http://localhost:8080/registration/checkIfUserIdAvailable/" + userId)
+      "/registration/checkIfUserIdAvailable/" + userId)
       .map( data => { return data.json(); })
       .catch( err => { return err; });
   }
