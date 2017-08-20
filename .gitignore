@@ -3,5 +3,9 @@
 /RemoteSystemsTempFiles
 /user-login-server/bin
 /user-login-server/target
+/user-login-ui/target
+/user-login-ui/node
 /user-login-ui/node_modules
 /user-login-ui/dist
+/user-login-ui/target
+user-login-server/log/application.log

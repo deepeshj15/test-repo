@@ -1,0 +1,9 @@
+<div class="container">
+  <p class="h4 text-center mb-2">User Profile</p>
+  <div *ngIf="errorMsg" class="alert alert-danger" style="margin-left: 10px">
+    {{ errorMsg }}
+  </div>
+  <div *ngIf="appUser">
+    User: {{ appUser.userName }}
+  </div>
+</div>

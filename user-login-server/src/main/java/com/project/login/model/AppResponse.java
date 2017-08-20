@@ -5,6 +5,7 @@ public class AppResponse {
 	private String status;
 	private int statusCode;
 	private String message;
+	private Object model;
 
 	public AppResponse(final String status, final int statusCode) {
 		super();
@@ -45,5 +46,20 @@ public class AppResponse {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	/**
+	 * @return the model
+	 */
+	public Object getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model
+	 *            the model to set
+	 */
+	public void setModel(Object model) {
+		this.model = model;
 	}
 }

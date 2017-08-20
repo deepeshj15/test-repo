@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .form-field-group {
-    margin-top: 5px;
+    margin-top: 3px;
+    margin-bottom: 2px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -25,4 +26,9 @@
 
 .ng-invalid:not(form)  {
   border-left: 5px solid #a94442; /* red */
+}
+
+.bottom-router-link {
+  margin: 2px; 
+  text-align: center;
 }

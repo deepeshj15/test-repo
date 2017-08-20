@@ -5,17 +5,19 @@ import { HttpModule } from '@angular/http';
 import { DatepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { LoginComponent } from './components/login/login.component';
 import { Routing } from './app.routes';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     LoginComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule, 

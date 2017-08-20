@@ -1,14 +1,15 @@
 {
-  "name": "login",
-  "version": "0.0.0",
+  "name": "user-login-ui",
+  "version": "1.0",
   "license": "MIT",
+  "angular-cli": {},
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "tsc -p src/",
+    "build:watch": "tsc -p src/ -w",
+    "serve": "lite-server -c=bs-config.json",
+    "prestart": "npm run build",
+    "start": "concurrently \"npm run build:watch\" \"npm run serve --proxy-config proxy-config.json\" ",
+    "lint": "tslint ./src/**/*.ts -t verbose"    
   },
   "private": true,
   "dependencies": {
@@ -44,8 +45,9 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
+    "ts-loader": "^2.3.3",
     "ts-node": "~3.3.0",
     "tslint": "~5.5.0",
-    "typescript": "~2.4.2"
+    "typescript": "^2.4.2"
   }
 }

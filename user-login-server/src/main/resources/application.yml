@@ -1,0 +1,17 @@
+
+logging:
+  file: log/application.log
+  
+spring:
+  datasource:
+    url: jdbc:h2:~/user_login;MVCC=true;DB_CLOSE_DELAY=-1;MODE=Oracle
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    platform: h2
+    
+  h2:
+    console:
+      enabled: true
+      path: /h2
+    

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.project.login.data.UserRepository;
+import org.springframework.web.servlet.ModelAndView;
 import com.project.login.model.Registration;
+import com.project.login.security.AppUserDetailsService;
 import com.project.login.model.AppResponse;
 
 /**
@@ -22,7 +22,14 @@ import com.project.login.model.AppResponse;
 public class RegistrationController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private AppUserDetailsService userDetailsService;
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView login() {
+		final ModelAndView view  = new ModelAndView();
+		view.setViewName("index.html");
+		return view;
+	}
 
 	@RequestMapping(value = "/checkIfUserIdAvailable/{userId}", method = RequestMethod.GET)
 	public AppResponse checkIfUserIdAvailable(@PathVariable("userId") final String userId) {
@@ -32,7 +39,7 @@ public class RegistrationController {
 			response.setMessage("The provided User Id is either null or empty.");
 		} else if (userId.length() < 6 || userId.length() > 10) {
 			response.setMessage("User Id length must be minimum 6 character and maximum upto 10 characters.");
-		} else if (userId == null || userId.length() < 6 || this.userRepository.checkIfUserExist(userId)) {
+		} else if (userId == null || userId.length() < 6 || this.userDetailsService.checkIfUserExists(userId)) {
 			response.setMessage("The provided User Id is already in use. Please provide a different one.");
 		} else {
 			response.setStatus("SUCCESS");
@@ -61,7 +68,7 @@ public class RegistrationController {
 		final AppResponse response = checkIfUserIdAvailable(userId);
 		final String password = registration.getPassword();
 		if (response.getStatusCode() == 1) {
-			this.userRepository.createUser(registration);
+			this.userDetailsService.createAppUser(registration);
 			response.setMessage(
 					"Congratulation! User registration is successful. You will be redirected to login page in 3 seconds...");
 		} else if (password == null || password.trim().length() == 0) {

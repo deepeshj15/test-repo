@@ -27,14 +27,14 @@
           class="form-control field-text" required minlength="6" maxlength="10" />
           <!--<div *ngIf="loginForm.submitted && !password.valid" class="alert alert-danger" style="height: 30px">Password is required.</div>-->
       </div>
-      <div style="margin: 5px" align="center">
+      <div class="form-field-group" align="center">
         <!--<button (click)="doLogin(userLogin)" class="btn btn-success">Login</button>-->
         <button type="submit" [disabled]="!loginForm.form.valid" class="btn btn-success">Login</button>
       </div>
+      <div class="bottom-router-link">
+        Not a registered user? Please <a routerLink="/registration" routerLinkActive="active">
+          register here</a>
+      </div>
     </div>
   </form>
-  <div style="margin: 2px; text-align: center">
-    Not a registered user? Please <a routerLink="/registration" routerLinkActive="active">
-      register here</a>
-  </div>
 </div>

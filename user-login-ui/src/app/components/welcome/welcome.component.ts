@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
+import { ProfileComponent } from '../profile/profile.component';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
+  //,
+  //directives : [ ProfileComponent ]
 })
 export class WelcomeComponent implements OnInit {
 
   userId: string;
-  constructor(private activatedRoute: ActivatedRoute, private route: Router) {
+  constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.forEach(
       (params: ParamMap) => {
       this.userId = activatedRoute.snapshot.params['userId'];

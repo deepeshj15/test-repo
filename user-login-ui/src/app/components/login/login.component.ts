@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //import 'rxjs/add/operator/switchMap';
 
-import { Login } from '../model/login';
-import { LoginService } from '../service/login.service';
-
+import { Login } from '../../model/login';
+import { LoginService } from '../../services/login.service';
+import { FormValidationService } from '../../services/form-validation.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [ LoginService ]
+  providers: [ LoginService, FormValidationService ]
 })
 export class LoginComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   userLogin: Login;
 
   constructor(private activatedRoute: ActivatedRoute, private route: Router, 
-    private loginService: LoginService) {
+    private loginService: LoginService, private formValidationService: FormValidationService) {
       
     this.userLogin = new Login();
     this.activatedRoute.paramMap.forEach(
@@ -30,13 +30,16 @@ export class LoginComponent implements OnInit {
   }
 
   doLogin(userLogin: Login) {
-    
     this.errorMsg = null;
-    console.log("Request data: " + userLogin.userId);
+    //console.log("Request data: " + userLogin.userId);
     try {
+
+      console.log("Login Id: " + userLogin.userId);    
+      this.formValidationService.validateTextField(userLogin.userId, 'User Id', true);
+      this.formValidationService.validateTextField(userLogin.password, 'Password', true);
       this.loginService.doLogin(userLogin).subscribe(
         data => {
-          console.log("Response data: " + data['statusCode'] + ", " + data['message']);
+          //console.log("Response status: " + data['statusCode']);
           if (data['statusCode'] == 0) {
             this.errorMsg = data['message'];
           } else {

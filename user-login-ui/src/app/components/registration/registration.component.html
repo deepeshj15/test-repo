@@ -55,11 +55,11 @@
         <input type="text" [(ngModel)]="registration.secretAnswer" name="secretAnswer" #secretAnswer
           class="form-control field-text" required />
       </div>
-      <div form-field-group align="center">
+      <div class="form-field-group" align="center">
         <!--<button (click)="doRegister(registration)" class="btn">Register</button>-->
         <button type="submit" [disabled]="!registrationForm.form.valid" class="btn btn-success">Register</button>
       </div>
-      <div style="margin: 2px; text-align: center">
+      <div class="bottom-router-link">
         Proceed to User login <a routerLink="/login" routerLinkActive="active">here</a>
       </div>
     </div>
