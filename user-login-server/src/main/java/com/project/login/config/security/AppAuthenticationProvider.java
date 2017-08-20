@@ -1,4 +1,4 @@
-package com.project.login.security;
+package com.project.login.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -8,6 +8,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import com.project.login.service.AppUserDetailsService;
 
 @Component
 public class AppAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {

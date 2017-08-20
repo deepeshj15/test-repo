@@ -1,4 +1,4 @@
-package com.project.login.profile;
+package com.project.login.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.login.model.AppResponse;
 import com.project.login.model.AppUser;
-import com.project.login.security.AppUserDetailsService;
+import com.project.login.service.AppUserDetailsService;
 
 @RestController
 @RequestMapping("/profile")

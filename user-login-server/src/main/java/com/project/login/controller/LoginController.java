@@ -1,4 +1,4 @@
-package com.project.login;
+package com.project.login.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.login.config.security.AppAuthenticationProvider;
 import com.project.login.model.AppResponse;
 import com.project.login.model.Login;
-import com.project.login.security.AppAuthenticationProvider;
 
 @RestController
 @RequestMapping("/login")

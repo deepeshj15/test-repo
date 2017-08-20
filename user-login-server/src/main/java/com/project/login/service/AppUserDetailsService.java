@@ -1,4 +1,4 @@
-package com.project.login.security;
+package com.project.login.service;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.project.login.data.AppUserRepository;
 import com.project.login.model.AppUser;
 import com.project.login.model.Registration;
+import com.project.login.repository.AppUserRepository;
 
 @Service
 public class AppUserDetailsService implements UserDetailsService, IAppUserDetailsService {

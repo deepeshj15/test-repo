@@ -1,4 +1,4 @@
-package com.project.login.data;
+package com.project.login.config;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableAutoConfiguration
 @EntityScan(basePackages = {"com.project.login.model"})
-@EnableJpaRepositories(basePackages = {"com.project.login.data"})
+@EnableJpaRepositories(basePackages = {"com.project.login.repository"})
 @EnableTransactionManagement
 public class RepositoryConfiguration {
 }

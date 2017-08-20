@@ -1,4 +1,4 @@
-package com.project.login.data;
+package com.project.login.repository;
 
 import java.util.HashMap;
 import java.util.Map;
