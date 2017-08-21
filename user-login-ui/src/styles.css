@@ -16,9 +16,11 @@
     height: 30px;
 }
 
+/* Shows a vertical grey line for a valid form
 .ng-valid {
-  border-left: 5px solid grey; /* green */
+  border-left: 5px solid grey;
 }
+*/
 
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */

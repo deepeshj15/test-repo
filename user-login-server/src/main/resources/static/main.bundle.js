@@ -229,6 +229,7 @@ var LoginComponent = (function () {
         this.errorMsg = null;
         //console.log("Request data: " + userLogin.userId);
         try {
+            console.log("Login Id: " + userLogin.userId);
             this.formValidationService.validateTextField(userLogin.userId, 'User Id', true);
             this.formValidationService.validateTextField(userLogin.password, 'Password', true);
             this.loginService.doLogin(userLogin).subscribe(function (data) {

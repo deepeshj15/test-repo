@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.form-field-group {\n    margin-top: 3px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    margin-right: 10px;\n}\n\n.field-text {\n    height: 30px;\n}\n\n.field-label {\n    width: 140px; \n    text-align: left; \n    height: 30px;\n}\n\n.ng-valid {\n  border-left: 5px solid grey; /* green */\n}\n\n.ng-valid[required], .ng-valid.required  {\n  border-left: 5px solid #42A948; /* green */\n}\n\n.ng-invalid:not(form)  {\n  border-left: 5px solid #a94442; /* red */\n}\n\n.bottom-router-link {\n  margin: 2px; \n  text-align: center;\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.form-field-group {\n    margin-top: 3px;\n    margin-bottom: 2px;\n    margin-left: 10px;\n    margin-right: 10px;\n}\n\n.field-text {\n    height: 30px;\n}\n\n.field-label {\n    width: 140px; \n    text-align: left; \n    height: 30px;\n}\n\n/* Shows a vertical grey line for a valid form\n.ng-valid {\n  border-left: 5px solid grey;\n}\n*/\n\n.ng-valid[required], .ng-valid.required  {\n  border-left: 5px solid #42A948; /* green */\n}\n\n.ng-invalid:not(form)  {\n  border-left: 5px solid #a94442; /* red */\n}\n\n.bottom-router-link {\n  margin: 2px; \n  text-align: center;\n}", ""]);
 
 // exports
 

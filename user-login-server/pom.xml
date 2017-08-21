@@ -61,10 +61,10 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
 							<resources>
 								<resource>
-									<directory>${basedir}/../angular-ui/target/classes/static</directory>
+									<directory>${basedir}/../user-login-ui/dist</directory>
 									<filtering>false</filtering>
 								</resource>
 							</resources>
